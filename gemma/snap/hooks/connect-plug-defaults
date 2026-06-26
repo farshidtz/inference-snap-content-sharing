@@ -10,6 +10,9 @@ exec 2> >(logger --stderr --priority error --tag=$tag)
 
 echo "Connect plug config for snap $SNAP_INSTANCE_NAME"
 
-echo "snap name: $(snapctl get :config --slot snap-name)"
-echo "snap: $(snapctl get :config --slot snap)"
-echo "my name: $(snapctl get :config --slot myname)"
+defaults="$(snapctl get :defaults --slot snap.gemma4)"
+
+echo "engine: "$defaults""
+
+# dump the defaults to a file for debugging
+echo "$defaults" > /tmp/defaults.json

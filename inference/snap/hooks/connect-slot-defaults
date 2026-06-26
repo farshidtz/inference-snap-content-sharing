@@ -1,0 +1,23 @@
+#!/bin/bash
+
+tag="snap.$SNAP_INSTANCE_NAME.hook.connect-slot-defaults"
+
+# Redirect stdout to stdout+syslog
+exec 1> >(tee >(logger --tag=$tag))
+# Redirect stderr to stderr+syslog
+exec 2> >(logger --stderr --priority error --tag=$tag)
+
+
+echo "Connect slot for snap $SNAP_INSTANCE_NAME"
+
+# This isn't possible. It looks like the mount point for the slot isn't created yet. So we can't write to it.
+#
+# echo "hello from inference @ "$(date)"" > $SNAP_COMMON/share/defaults/hello.txt
+#
+# $ sudo snap install gemma3-jane --channel=edge/content-share --devmode
+# error: cannot perform the following tasks:
+# - Run hook connect-slot-defaults of snap "inference" (run hook "connect-slot-defaults": 
+# -----
+# Connect slot for snap inference
+# <11>Jun 26 18:31:02 snap.inference.hook.connect-slot-defaults: /snap/inference/3/meta/hooks/connect-slot-defaults: line 13: /var/snap/inference/common/share/defaults/hello.txt: No such file or directory
+# -----)

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-tag="snap.$SNAP_INSTANCE_NAME.hook.prepare-plug-config"
+tag="snap.$SNAP_INSTANCE_NAME.hook.configure"
 
 # Redirect stdout to stdout+syslog
 exec 1> >(tee >(logger --tag=$tag))
@@ -8,6 +8,4 @@ exec 1> >(tee >(logger --tag=$tag))
 exec 2> >(logger --stderr --priority error --tag=$tag)
 
 
-echo "Preparing plug config for snap $SNAP_INSTANCE_NAME"
-
-snapctl set :config engine=cpu
+echo "Configure hook for snap $SNAP_INSTANCE_NAME"

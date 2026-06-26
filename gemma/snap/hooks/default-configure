@@ -1,0 +1,17 @@
+#!/bin/bash
+
+tag="snap.$SNAP_INSTANCE_NAME.hook.default-configure"
+
+# Redirect stdout to stdout+syslog
+exec 1> >(tee >(logger --tag=$tag))
+# Redirect stderr to stderr+syslog
+exec 2> >(logger --stderr --priority error --tag=$tag)
+
+
+echo "Default configure hook for snap $SNAP_INSTANCE_NAME"
+
+#echo "engine: $(snapctl get :defaults --slot engine)"
+cat /tmp/defaults.json
+cat $SNAP_COMMON/share/defaults/hello.txt
+
+snapctl install +test

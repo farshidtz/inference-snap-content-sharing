@@ -8,6 +8,13 @@ exec 1> >(tee >(logger --tag=$tag))
 exec 2> >(logger --stderr --priority error --tag=$tag)
 
 
-echo "Connect slot config for snap $SNAP_INSTANCE_NAME"
+echo "Prepare connect slot for snap $SNAP_INSTANCE_NAME"
 
-echo "engine: $(snapctl get :config --plug engine)"
+
+# Setting a json object directly isn't possible.
+snapctl set :defaults -t snap='{
+    "gemma4": {
+        "engine": "intel-gpu",
+        "model": "e2b-q4-k-m-gguf"
+    }
+}'

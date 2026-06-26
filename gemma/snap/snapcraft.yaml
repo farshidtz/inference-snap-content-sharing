@@ -1,4 +1,4 @@
-name: gemma # you probably want to 'snapcraft register <name>'
+name: gemma3-jane # you probably want to 'snapcraft register <name>'
 base: core26 # the base snap is the execution environment for this snap
 version: '0.1' # just for humans, typically '1.2+git' or '1.3.2'
 summary: Single-line elevator pitch for your amazing snap # 79 char long summary
@@ -12,18 +12,22 @@ grade: devel # must be 'stable' to release into candidate/stable channels
 confinement: devmode # use 'strict' once you have the right plugs and slots
 
 slots:
-  config:
+  # plug to share status with other snaps
+  status:
     interface: content
-    content: config
+    content: status
     source:
       read:
-        - $SNAP_COMMON/share/out
-      write:
-        - $SNAP_COMMON/share/in
+        - $SNAP_COMMON/share/gemma4-status # give it a unique name to identify the source and avoid conflicts
+ 
+ # models: # can we set components as sources?
 
-  
-
-  # models: # components??
+plugs:
+  # plug to receive defaults from other snaps
+  defaults:
+    interface: content
+    content: defaults
+    target: $SNAP_COMMON/share
 
 parts:
   myapp:
@@ -35,3 +39,8 @@ apps:
   gemma:
     command: app.sh
 
+components:
+  test:
+    type: standard
+    summary: Test component
+    description: Test component

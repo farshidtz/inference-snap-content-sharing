@@ -1,6 +1,6 @@
 #!/bin/bash
 
-tag="snap.$SNAP_INSTANCE_NAME.hook.prepare-slot-config"
+tag="snap.$SNAP_INSTANCE_NAME.hook.install"
 
 # Redirect stdout to stdout+syslog
 exec 1> >(tee >(logger --tag=$tag))
@@ -8,6 +8,6 @@ exec 1> >(tee >(logger --tag=$tag))
 exec 2> >(logger --stderr --priority error --tag=$tag)
 
 
-echo "Preparing slot config for snap $SNAP_INSTANCE_NAME"
+echo "Install hook for snap $SNAP_INSTANCE_NAME"
 
-snapctl set :config myname=$SNAP_INSTANCE_NAME
+#echo "engine: $(snapctl get :defaults --slot engine)"

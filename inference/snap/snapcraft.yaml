@@ -12,11 +12,13 @@ grade: devel # must be 'stable' to release into candidate/stable channels
 confinement: devmode # use 'strict' once you have the right plugs and slots
 
 
-plugs:
-  config:
+slots:
+  defaults:
     interface: content
-    content: config
-    target: $SNAP_COMMON/share/shared-config
+    content: defaults
+    source:
+      read:
+        - $SNAP_COMMON/share/defaults # We don't really need this. But snapd spits out a warning if we don't have a source.
 
 parts:
   myapp:
