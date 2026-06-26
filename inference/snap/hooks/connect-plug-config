@@ -1,0 +1,15 @@
+#!/bin/bash
+
+tag="snap.$SNAP_INSTANCE_NAME.hook.connect-plug-config"
+
+# Redirect stdout to stdout+syslog
+exec 1> >(tee >(logger --tag=$tag))
+# Redirect stderr to stderr+syslog
+exec 2> >(logger --stderr --priority error --tag=$tag)
+
+
+echo "Connect plug config for snap $SNAP_INSTANCE_NAME"
+
+echo "snap name: $(snapctl get :config --slot snap-name)"
+echo "snap: $(snapctl get :config --slot snap)"
+echo "my name: $(snapctl get :config --slot myname)"
