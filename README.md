@@ -1,4 +1,4 @@
-# Content sharing prototype
+# Inference snap default provider
 
 Content sharing from the inference manager snap to inference snaps.
 
@@ -29,3 +29,14 @@ Install `inference` snap first, then `gemma3-jane` snap.
 ```console
 sudo journalctl -f -n 100 --no-hostname | grep gemma3-jane | grep -v kernel
 ```
+
+
+## FAQ
+
+* Why isn't an install hook used to configure the snap at install time?
+  * The install hook runs after the connection takes place. However, the install hook does not have access to configurations seeded from a gadget on Ubuntu Core. The design here is to make the configurations shared from another snap similar to those seeded from a gadget.
+* Why aren't the configuration shared via a file in the content interface?
+  * A file could be used and then converted to snap options in the connect hook. The design tries to make the configurations shared from another snap similar to those seeded from a gadget. To satisfy this, the configurations must be received by the default configure as snap options.
+* Why isn't the configurations consumed by the connect hook directly instead of the default-configure hook?
+  * The configurations must be applied only once and at install time. This leaves us with the install and default-configure hooks.
+
