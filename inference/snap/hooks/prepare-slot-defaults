@@ -13,11 +13,8 @@ echo "Prepare connect slot for snap $SNAP_INSTANCE_NAME"
 
 # Setting a json object directly isn't possible.
 snapctl set :defaults -t snap='{
-    "gemma4": {
+    "gemma3": {
         "engine": "intel-gpu",
-        "model": "e2b-q4-k-m-gguf"
+        "model": "gemma3-270m"
     }
 }'
-
-mkdir -p $SNAP_COMMON/share/defaults
-echo "This is prepare hook from the provider" > $SNAP_COMMON/share/defaults/inference.txt

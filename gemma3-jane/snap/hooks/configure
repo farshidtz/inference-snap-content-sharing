@@ -9,3 +9,6 @@ exec 2> >(logger --stderr --priority error --tag=$tag)
 
 
 echo "Configure hook for snap $SNAP_INSTANCE_NAME"
+
+# Do nothing. 
+# It is sadly mandatory to have a configure hook when default-configure hook is present, even if it does nothing.

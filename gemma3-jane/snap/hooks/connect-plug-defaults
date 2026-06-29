@@ -20,14 +20,12 @@ echo "engine: "$defaults""
 #   "model": "e2b-q4-k-m-gguf"
 # }
 
-# Dump the defaults to a file for default-configure hook to read, since default-configure hook cannot read the slot attributes directly
-echo "$defaults" > /tmp/defaults.json
+set -o pipefail
 
+engine=$(echo "$defaults" | jq -r .engine)
+model=$(echo "$defaults" | jq -r .model)
 
-
-cat $SNAP_COMMON/share/defaults/inference.txt
-
-# Can we install components here? yes
-# snapctl install +test
-
-# modelctl use-engine --smart
+# Store the extracted values as snap options, the same way a Gadget snap would set them
+snapctl set engine="$engine"
+snapctl set model="$model"
+snapctl set test="test"
