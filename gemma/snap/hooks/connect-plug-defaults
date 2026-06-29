@@ -10,9 +10,24 @@ exec 2> >(logger --stderr --priority error --tag=$tag)
 
 echo "Connect plug config for snap $SNAP_INSTANCE_NAME"
 
-defaults="$(snapctl get :defaults --slot snap.gemma4)"
+# Read the defaults set by the provider snap
+defaults="$(snapctl get :defaults --slot snap.gemma3)"
 
 echo "engine: "$defaults""
+# Prints:
+# {
+#   "engine": "intel-gpu",
+#   "model": "e2b-q4-k-m-gguf"
+# }
 
-# dump the defaults to a file for debugging
+# Dump the defaults to a file for default-configure hook to read, since default-configure hook cannot read the slot attributes directly
 echo "$defaults" > /tmp/defaults.json
+
+
+
+cat $SNAP_COMMON/share/defaults/inference.txt
+
+# Can we install components here? yes
+# snapctl install +test
+
+# modelctl use-engine --smart

@@ -10,8 +10,13 @@ exec 2> >(logger --stderr --priority error --tag=$tag)
 
 echo "Default configure hook for snap $SNAP_INSTANCE_NAME"
 
+# Why use default configure hook?
+# - It runs after the connect hook
+# - It has access to defaults seeded from a gadget on Ubuntu Core (install hook does not)
+
 #echo "engine: $(snapctl get :defaults --slot engine)"
 cat /tmp/defaults.json
-cat $SNAP_COMMON/share/defaults/hello.txt
+# cat $SNAP_COMMON/share/defaults/hello.txt
 
-snapctl install +test
+# snapctl install +test
+#modelctl use-engine --auto

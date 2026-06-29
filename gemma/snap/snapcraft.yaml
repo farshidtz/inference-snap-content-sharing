@@ -12,22 +12,24 @@ grade: devel # must be 'stable' to release into candidate/stable channels
 confinement: devmode # use 'strict' once you have the right plugs and slots
 
 slots:
-  # plug to share status with other snaps
+  # To share status with other snaps
   status:
     interface: content
     content: status
     source:
       read:
-        - $SNAP_COMMON/share/gemma4-status # give it a unique name to identify the source and avoid conflicts
- 
- # models: # can we set components as sources?
+        # Give it a unique name to identify the source and avoid conflicts that trigger numbered directories
+        - $SNAP_COMMON/share/status/$SNAP_INSTANCE_NAME
+ # To share model weights
+ # models:
+ # can we set components as sources?
 
 plugs:
-  # plug to receive defaults from other snaps
+  # To receive defaults from other snaps
   defaults:
     interface: content
     content: defaults
-    target: $SNAP_COMMON/share
+    target: $SNAP_COMMON/share # provider uses "defaults" as dir name
 
 parts:
   myapp:
