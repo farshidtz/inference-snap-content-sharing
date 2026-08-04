@@ -1,0 +1,26 @@
+name: inference
+base: core26 
+version: '0.1' 
+summary: Single-line elevator pitch for your amazing snap 
+description: This is my-snap's description. 
+
+grade: devel # must be 'stable' to release into candidate/stable channels
+confinement: devmode # use 'strict' once you have the right plugs and slots
+
+
+slots:
+  defaults:
+    interface: content
+    content: defaults
+    source:
+      read:
+        - $SNAP_COMMON/share/defaults # We don't really need this. But snapd spits out a warning if we don't have a source.
+
+parts:
+  myapp:
+    plugin: dump
+    source: .
+
+apps:
+  inference:
+    command: app.sh

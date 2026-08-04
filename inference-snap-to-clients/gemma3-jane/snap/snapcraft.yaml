@@ -1,0 +1,48 @@
+name: gemma3-jane
+base: core26 
+version: producer-only
+summary: Single-line elevator pitch for your amazing snap 
+description: This is my-snap's description. 
+
+grade: devel
+confinement: strict
+
+slots:
+  # To share provider details with other snaps
+  provider:
+    interface: content
+    content: provider
+    source:
+      read:
+        # Give it a unique name to identify the source and avoid conflicts that trigger numbered directories
+        # $SNAP_INSTANCE_NAME cannot be used here:
+        # update.go:193: cannot change mount namespace according to change mount (/snap/gemma3-jane/x4//var/snap/gemma3-jane/common/share/ /var/snap/consumer/common/share none bind,ro 0 0): cannot split unclean path "/snap/gemma3-jane/x4//var/snap/gemma3-jane/common/share/"
+        - $SNAP_COMMON/share/gemma3-jane
+  # To share model weights
+  # models:
+  #   interface: content
+  #   content: models
+  #   source:
+  #     read:
+      # $SNAP/components/$SNAP_REVISION/model-a:
+      #   snap "gemma3-jane" has bad plugs or slots: models (content interface path is not clean: "$SNAP/../components/$SNAP_REVISION/model-a")
+      # /snap/gemma3-jane/components/$SNAP_REVISION/model-a -> $SNAP_REVISION is not known here
+      # /snap/gemma3-jane/components -> mounted empty on the consumer side
+
+
+parts:
+  myfiles:
+    plugin: dump
+    source: .
+    organize:
+      model.gguf: (component/model-a)
+
+apps:
+  gemma:
+    command: app.sh
+
+components:
+  model-a:
+    type: standard
+    summary: Test component
+    description: Test component

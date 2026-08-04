@@ -1,0 +1,31 @@
+name: gemma3-jane
+base: core26 
+version: consumer-only
+summary: Single-line elevator pitch for your amazing snap 
+description: This is my-snap's description. 
+
+grade: devel
+confinement: strict
+
+plugs:
+  # To receive defaults from other snaps
+  defaults:
+    interface: content
+    content: defaults
+    target: $SNAP_COMMON/share # Provider uses "defaults" as dir name.
+
+parts:
+  myapp:
+    plugin: dump
+    source: .
+
+
+apps:
+  gemma:
+    command: app.sh
+
+components:
+  test:
+    type: standard
+    summary: Test component
+    description: Test component
