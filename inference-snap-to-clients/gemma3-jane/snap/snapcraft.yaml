@@ -11,7 +11,7 @@ slots:
   # To share provider details with other snaps
   provider:
     interface: content
-    content: provider
+    content: inference-provider
     source:
       read:
         # Give it a unique name to identify the source and avoid conflicts that trigger numbered directories
@@ -27,7 +27,7 @@ slots:
   # This is currently not possible because the components cannot be shared via the content interface.
   # models:
   #   interface: content
-  #   content: models
+  #   content: inference-models
   #   source:
   #     read:
   #     # Attempted paths:

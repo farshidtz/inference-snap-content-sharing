@@ -18,12 +18,12 @@ plugs:
     # Open questions:
     # - Should this be versioned? The API itself is versioned. The env file is too simple and can easily remain compatible across versions.
     # - Should this be made specific to openai? No, the consumer can look it up and react accordingly.
-    content: provider
-    target: $SNAP/share # Provider should use a unique name to avoid conflicts that trigger numbered directories
+    content: inference-provider
+    target: $SNAP/share/provider # Provider should use a unique name to avoid conflicts that trigger numbered directories
   model-weights:
     interface: content
     # content: 
-    target: $SNAP/share # Provider should use a unique name to avoid conflicts that trigger numbered directories
+    target: $SNAP/share/models # Provider should use a unique name to avoid conflicts that trigger numbered directories
 
 parts:
   myapp:
