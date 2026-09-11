@@ -2,4 +2,4 @@
 
 find $SNAP/share
 
-cat $SNAP/share/provider/gemma3-jane/provider.env
+cat $SNAP/share/provider*/provider.env

@@ -14,15 +14,12 @@ slots:
     content: inference-provider
     source:
       read:
-        # Give it a unique name to identify the source and avoid conflicts that trigger numbered directories
         # There are better locations for this, but they are not supported:
-        # 1: $SNAP_INSTANCE_NAME cannot be used here:
-        # update.go:193: cannot change mount namespace according to change mount (/snap/gemma3-jane/x4//var/snap/gemma3-jane/common/share/ /var/snap/consumer/common/share none bind,ro 0 0): cannot split unclean path "/snap/gemma3-jane/x4//var/snap/gemma3-jane/common/share/"
-        # 2: Use of a tempfs (/run/snap.gemma3-jane/provider/gemma3-jane, /tmp/provider/gemma3-jane) breaks content sharing:
+        # 1: Use of a tempfs (/run/snap.gemma3-jane/provider/gemma3-jane, /tmp/provider/gemma3-jane) breaks content sharing:
         # Directory gets mounted but not the content. 
-        # 3: User scoped directories (SNAP_USER_COMMON, SNAP_USER_DATA) are not supported by snapd for content sharing:
+        # 2: User scoped directories (SNAP_USER_COMMON, SNAP_USER_DATA) are not supported by snapd for content sharing:
         # update.go:193: cannot change mount namespace according to change mount (/snap/gemma3-jane/x1//provider/gemma3-jane /snap/consumer/x1/share/gemma3-jane none bind,ro 0 0): cannot split unclean path "/snap/gemma3-jane/x1//provider/gemma3-jane"
-        - $SNAP_COMMON/share/provider/gemma3-jane
+        - $SNAP_COMMON/share/provider
   # To share model weights
   # This is currently not possible because the components cannot be shared via the content interface.
   # models:

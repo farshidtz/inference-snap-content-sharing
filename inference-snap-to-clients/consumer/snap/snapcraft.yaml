@@ -19,11 +19,11 @@ plugs:
     # - Should this be versioned? The API itself is versioned. The env file is too simple and can easily remain compatible across versions.
     # - Should this be made specific to openai? No, the consumer can look it up and react accordingly.
     content: inference-provider
-    target: $SNAP/share/provider # Provider should use a unique name to avoid conflicts that trigger numbered directories
-  model-weights:
-    interface: content
-    # content: 
-    target: $SNAP/share/models # Provider should use a unique name to avoid conflicts that trigger numbered directories
+    target: $SNAP/share 
+  # model-weights:
+  #   interface: content
+  #   content: inference-models
+  #   target: $SNAP/share
 
 parts:
   myapp:
